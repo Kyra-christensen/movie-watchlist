@@ -13,6 +13,9 @@ import WatchListPage from './WatchListPage';
 import { logout } from './services/fetch-utils'; 
 
 function App() {
+
+  const [currentUser, setCurrentUser] = useState(localStorage.getItem('supabase.auth.token'));
+  
   return (
     
   );
