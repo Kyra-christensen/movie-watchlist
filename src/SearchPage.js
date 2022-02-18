@@ -18,6 +18,24 @@ export default function SearchPage() {
   }
 
   return (
-    <div>SearchPage</div>
+    <div>
+      <div>
+        <h3>Search Page</h3>
+        <form onSubmit={handleSubmit}>
+          <label>
+          title:
+            <input onChange={e => setSearch(e.target.value)}></input>
+          </label>
+          <button>Submit</button>
+        </form>
+      </div>
+      <div>
+        {
+          isLoading
+            ? <Spinner/>
+            : <MovieList movies={movies} />
+        }
+      </div>
+    </div>
   );
 }
