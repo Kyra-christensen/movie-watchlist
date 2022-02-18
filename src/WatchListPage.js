@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MovieList from './MovieList';
+import WatchListItem from './WatchListItem';
 import { getWatchList } from './services/fetch-utils';
 
 export default function WatchListPage() {
@@ -15,7 +15,12 @@ export default function WatchListPage() {
   return (
     <div>
       <h3>My Watchlist</h3>
-      < MovieList moviesArr={moviesArr} setMoviesArr={setMoviesArr} />
+      <div>
+        {
+          moviesArr.map((watchlistMovie, i) =>
+            <WatchListItem key={`${watchlistMovie}-${i}`} watchlistMovie={watchlistMovie} />)
+        }
+      </div>
     </div>
   );
 }
