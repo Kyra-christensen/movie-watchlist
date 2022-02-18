@@ -18,3 +18,36 @@ export async function logout() {
   await client.auth.signOut();
   return window.location.href = '../';
 }
+
+export async function getWatchList() {
+  const response = await client
+    .from('movies_watchlist')
+    .select()
+    .order('id');
+
+  return checkError(response);
+}
+
+export async function addToWatchList(movie){
+  const response = await client
+    .from('movies_watchlist')
+    .insert(movie);
+
+  return checkError(response);
+}
+
+export async function watchMovie(id) {
+  const response = await client
+    .from('movies_watchlist')
+    .update({ watched: true })
+    .match({ id })
+    .single();
+
+  return checkError(response);
+}
+
+export async function searchMovies(query) {
+  const response = await fetch(`'/.netlify/functions/movies-endpoint?searchQuery=${query}`);
+  const json = await response.json();
+  return json.data.results;
+}
