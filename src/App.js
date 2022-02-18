@@ -6,15 +6,23 @@ import {
   Redirect,
   NavLink
 } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AuthPage from './AuthPage';
 import SearchPage from './SearchPage';
 import WatchListPage from './WatchListPage';
-import { logout } from './services/fetch-utils'; 
+import { logout, getUser } from './services/fetch-utils'; 
 
 export default function App() {
 
-  const [currentUser, setCurrentUser] = useState(localStorage.getItem('supabase.auth.token'));
+  const [currentUser, setCurrentUser] = useState('');
+
+  useEffect(() => {
+    async function fetch() {
+      const data = getUser();
+      setCurrentUser(data);
+    }
+    fetch();
+  }, []);
 
   return (
     <Router>
