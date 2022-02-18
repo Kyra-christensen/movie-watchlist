@@ -33,6 +33,29 @@ function App() {
             </li>
           </ul>
         }
+        <Switch>
+          <Route exact path="/">
+            {
+              currentUser
+                ? <Redirect to="/search"/>
+                : <AuthPage setCurrentUser={setCurrentUser} />
+            }
+          </Route>
+          <Route exact path="/search">
+            {
+              currentUser
+                ? <SearchPage />
+                : <Redirect to="/" />
+            }
+          </Route>
+          <Route exact path="/watchlist">
+            {
+              currentUser
+                ? <WatchListPage />
+                : <Redirect to="/" />
+            }
+          </Route>
+        </Switch>
       </div>
     </Router>
   );
