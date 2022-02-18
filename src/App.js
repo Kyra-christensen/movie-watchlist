@@ -15,9 +15,26 @@ import { logout } from './services/fetch-utils';
 function App() {
 
   const [currentUser, setCurrentUser] = useState(localStorage.getItem('supabase.auth.token'));
-  
+
   return (
-    
+    <Router>
+      <div>
+        {
+          currentUser &&
+          <ul>
+            <li>
+              <NavLink to="/search">Search</NavLink>
+            </li>
+            <li>
+              <NavLink to="/watchlist">Watchlist</NavLink>
+            </li>
+            <li>
+              <button onClick={logout}>Logout</button>
+            </li>
+          </ul>
+        }
+      </div>
+    </Router>
   );
 }
 
