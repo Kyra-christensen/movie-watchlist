@@ -21,7 +21,7 @@ export default function Movie({ movie, isOnWatchList, fetchAndRefresh }) {
     <div title="movie-item" onClick={handleClick} className={`movie-item ${watched} ? 'watched' : ''`}>
       <h1>{watched && '❤️'}</h1>
       <h2>{movie.title}</h2>
-      <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} />
+      <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : 'https://placekitten.com.200/300'} />
       <p>{movie.overview}</p>
     </div>
   );

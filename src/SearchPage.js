@@ -12,9 +12,9 @@ export default function SearchPage() {
     e.preventDefault();
     
     const movies = await searchMovies(search);
-    console.log(movies);
-    setResults(movies);
     
+    setResults(movies);
+    console.log(setResults);
   }
 
   async function fetchAndRefresh() {
@@ -45,7 +45,8 @@ export default function SearchPage() {
         </form>
       </div>
       <div>
-        <MovieList results={results} isOnWatchList={isOnWatchList} fetchAndRefresh={fetchAndRefresh} />
+        
+        <MovieList movies={results} isOnWatchList={isOnWatchList} fetchAndRefresh={fetchAndRefresh} />
       </div>
     </div>
   );
