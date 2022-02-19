@@ -1,40 +1,51 @@
-import React, { useState } from 'react';
-import Spinner from './Spinner';
+import React, { useEffect, useState } from 'react';
 import MovieList from './MovieList';
+import { getWatchList, searchMovies } from './services/fetch-utils';
 
 export default function SearchPage() {
   const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [results, setResults] = useState([]);
+  
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setIsLoading(true);
-    const response = await fetch(`/.netlify/functions/movie-db?search=${search}`);
-    const json = await response.json();
-    console.log(json.results);
-    setMovies(json.results);
-    setIsLoading(false);
+    
+    const movies = await searchMovies(search);
+    console.log(movies);
+    setResults(movies);
+    
+  }
+
+  async function fetchAndRefresh() {
+    const watchlist = await getWatchList();
+    
+    setMovies(watchlist);
+  }
+
+  useEffect(() => {
+    fetchAndRefresh();
+  }, []);
+
+  function isOnWatchList(api_id) {
+    const match = movies.find(item => Number(item.api_id) === Number(api_id));
+    return Boolean(match);
   }
 
   return (
     <div>
       <div>
-        <h3>Search Page</h3>
+        <h3>Find a Movie</h3>
         <form onSubmit={handleSubmit}>
           <label>
           title:
-            <input onChange={e => setSearch(e.target.value)}></input>
+            <input value={search} onChange={e => setSearch(e.target.value)}/>
           </label>
           <button>Submit</button>
         </form>
       </div>
       <div>
-        {
-          isLoading
-            ? <Spinner/>
-            : <MovieList movies={movies} />
-        }
+        <MovieList results={results} isOnWatchList={isOnWatchList} fetchAndRefresh={fetchAndRefresh} />
       </div>
     </div>
   );

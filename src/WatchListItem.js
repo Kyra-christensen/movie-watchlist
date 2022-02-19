@@ -1,11 +1,18 @@
 import React from 'react';
+import { watchMovie } from './services/fetch-utils';
 
-export default function WatchListItem({ watchlistMovie }) {
+export default function WatchListItem({ movie, fetchAndRefresh }) {
+  async function handleClick() {
+    await watchMovie(movie.id);
+    fetchAndRefresh();
+  }
+
   return (
-    <div>
-      <h2>{watchlistMovie.title}</h2>
-      <img src={`https://image.tmdb.org/t/p/w500${watchlistMovie.poster_path}`}/>
-      <p>{watchlistMovie.overview}</p>
+    <div onClick={handleClick}>
+      <h1>{movie.watched ? '✔️' : '👀'}</h1>
+      <h2>{movie.title}</h2>
+      <img src={ `https://image.tmdb.org/t/p/original${movie.poster}`}/>
+      <p>{movie.description}</p>
     </div>
   );
 }

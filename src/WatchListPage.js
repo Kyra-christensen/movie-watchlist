@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import WatchListItem from './WatchListItem';
+import MovieList from './MovieList';
 import { getWatchList } from './services/fetch-utils';
 
 export default function WatchListPage() {
-  const [moviesArr, setMoviesArr] = useState([]);
+  const [movies, setMovies] = useState([]);
+
+  async function fetchAndRefresh() {
+    const watchlist = getWatchList();
+    setMovies(watchlist);
+  }
 
   useEffect(() => {
-    async function fetch(){
-      const watchlist = getWatchList();
-      setMoviesArr(watchlist);
-    }
-    fetch();
+    fetchAndRefresh();
   }, []);
+
+
+
   return (
     <div>
       <h3>My Watchlist</h3>
-      <div>
-        {
-          moviesArr.map((watchlistMovie, i) =>
-            <WatchListItem key={`${watchlistMovie}-${i}`} watchlistMovie={watchlistMovie} />)
-        }
-      </div>
+      <MovieList movies={movies} fetchAndRefresh={fetchAndRefresh}/>
     </div>
   );
 }

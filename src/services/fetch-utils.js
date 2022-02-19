@@ -47,7 +47,8 @@ export async function watchMovie(id) {
 }
 
 export async function searchMovies(query) {
-  const response = await fetch(`'/.netlify/functions/movies-endpoint?searchQuery=${query}`);
+  const response = await fetch(`/.netlify/functions/movie-endpoint?searchQuery=${query}`);
   const json = await response.json();
-  return json.data.results;
+  
+  return JSON.parse(json).data.results;
 }
