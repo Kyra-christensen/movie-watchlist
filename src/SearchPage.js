@@ -1,19 +1,34 @@
-import React, { useState } from 'react';
-import Spinner from './Spinner';
+import React, { useEffect, useState } from 'react';
 import MovieList from './MovieList';
-import { searchMovies } from './services/fetch-utils';
+import { getWatchList, searchMovies } from './services/fetch-utils';
 
 export default function SearchPage() {
   const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [results, setResults] = useState([]);
+  
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setIsLoading(true);
+    
     const movies = await searchMovies(search);
-    setMovies(movies);
-    setIsLoading(false);
+    console.log(movies);
+    setResults(movies);
+    
+  }
+
+  async function fetchAndRefresh() {
+    const watchlist = await getWatchList();
+    setMovies(watchlist);
+  }
+
+  useEffect(() => {
+    fetchAndRefresh();
+  }, []);
+
+  function isOnWatchList(api_id) {
+    const match = movies.find(item => Number(item.api_id) === Number(api_id));
+    return Boolean(match);
   }
 
   return (
@@ -23,18 +38,13 @@ export default function SearchPage() {
         <form onSubmit={handleSubmit}>
           <label>
           title:
-            <input onChange={e => setSearch(e.target.value)}
-              value={search}></input>
+            <input value={search} onChange={e => setSearch(e.target.value)}/>
           </label>
           <button>Submit</button>
         </form>
       </div>
       <div>
-        {
-          isLoading
-            ? <Spinner/>
-            : <MovieList movies={movies} />
-        }
+        <MovieList movies={results} isOnWatchList={isOnWatchList} fetchAndRefresh={fetchAndRefresh} />
       </div>
     </div>
   );
