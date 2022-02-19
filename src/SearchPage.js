@@ -33,10 +33,10 @@ export default function SearchPage() {
   }
 
   return (
-    <div>
-      <div>
-        <h3>Find a Movie</h3>
+    <div className='searchpage'>
+      <div className='search-form'>
         <form onSubmit={handleSubmit}>
+          <h3>Find a Movie</h3>
           <label>
           title:
             <input value={search} onChange={e => setSearch(e.target.value)}/>
