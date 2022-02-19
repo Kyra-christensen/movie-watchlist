@@ -19,6 +19,7 @@ export default function SearchPage() {
 
   async function fetchAndRefresh() {
     const watchlist = await getWatchList();
+    console.log(watchlist);
     setMovies(watchlist);
   }
 

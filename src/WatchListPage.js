@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import WatchListItem from './WatchListItem';
+import MovieList from './MovieList';
 import { getWatchList } from './services/fetch-utils';
 
 export default function WatchListPage() {
@@ -14,10 +14,12 @@ export default function WatchListPage() {
     fetchAndRefresh();
   }, []);
 
+
+
   return (
     <div>
       <h3>My Watchlist</h3>
-      <WatchListItem moviesArr={moviesArr} fetchAndRefresh={fetchAndRefresh}/>
+      <MovieList moviesArr={moviesArr} fetchAndRefresh={fetchAndRefresh}/>
     </div>
   );
 }
