@@ -3,11 +3,11 @@ import MovieList from './MovieList';
 import { getWatchList } from './services/fetch-utils';
 
 export default function WatchListPage() {
-  const [moviesArr, setMoviesArr] = useState([]);
+  const [movies, setMovies] = useState([]);
 
   async function fetchAndRefresh() {
     const watchlist = getWatchList();
-    setMoviesArr(watchlist);
+    setMovies(watchlist);
   }
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function WatchListPage() {
   return (
     <div>
       <h3>My Watchlist</h3>
-      <MovieList moviesArr={moviesArr} fetchAndRefresh={fetchAndRefresh}/>
+      <MovieList movies={movies} fetchAndRefresh={fetchAndRefresh}/>
     </div>
   );
 }
