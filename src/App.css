@@ -54,6 +54,8 @@
 
 .search-form {
   background-color: antiquewhite;
+  padding-bottom: 50px;
+  
 }
 
 .movie-item {
@@ -79,4 +81,8 @@
 .key{
   background-color: crimson;
   width: 150px;
+}
+
+ul {
+  background-color: antiquewhite;
 }

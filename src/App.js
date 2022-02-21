@@ -26,7 +26,7 @@ export default function App() {
 
   return (
     <Router>
-      <div>
+      <div className='header-links'>
         {
           currentUser &&
           <ul>
