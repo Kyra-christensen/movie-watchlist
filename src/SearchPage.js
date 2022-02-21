@@ -14,7 +14,7 @@ export default function SearchPage() {
     const movies = await searchMovies(search);
     
     setResults(movies);
-    console.log(setResults);
+    // console.log(setResults);
   }
 
   async function fetchAndRefresh() {
