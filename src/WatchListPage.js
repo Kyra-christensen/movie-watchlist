@@ -6,7 +6,7 @@ export default function WatchListPage() {
   const [movies, setMovies] = useState([]);
 
   async function fetchAndRefresh() {
-    const watchlist = getWatchList();
+    const watchlist = await getWatchList();
     setMovies(watchlist);
   }
 
@@ -17,8 +17,13 @@ export default function WatchListPage() {
 
 
   return (
-    <div>
+    <div className='watchlist-header'>
       <h3>My Watchlist</h3>
+      <div className='key'>
+        <h5>✔️ = Watched</h5>
+        <h5>👀 = Needs Watched</h5>
+      </div>
+      
       <MovieList movies={movies} fetchAndRefresh={fetchAndRefresh}/>
     </div>
   );
